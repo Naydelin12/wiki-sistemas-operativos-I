@@ -22,7 +22,7 @@ En esta sección sentaremos las bases fundamentales para comprender qué es un S
 
 ---
 
-## 🗺️ Mapa de Contenidos de la Unidad
+## Mapa de Contenidos de la Unidad
 
 Haz clic en cualquier tema para navegar directamente a él:
 
