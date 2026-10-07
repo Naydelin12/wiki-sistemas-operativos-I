@@ -28,3 +28,46 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Botón de acceso al Motor de Transacciones Concurrentes */
+
+.motorButtonContainer {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.motorButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.5rem;
+  border: 1px solid #2878a8;
+  border-radius: 8px;
+  background: #163a5f;
+  color: #ffffff !important;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.motorButton span {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.motorButton:hover {
+  background: #2878a8;
+  border-color: #3a9dad;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  transform: translateY(-2px);
+}
+
+.motorButton:hover span {
+  transform: translateX(4px);
+}
