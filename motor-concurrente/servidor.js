@@ -10,6 +10,13 @@ app.use(express.json());
 
 const PORT = 3001;
 
+function registrarEvento(evento) {
+    estadoMotor.eventos.push({
+        ...evento,
+        timestamp: new Date().toISOString()
+    });
+}
+
 // ==========================================
 // ESTADO REAL DEL MOTOR
 // ==========================================
@@ -136,7 +143,7 @@ app.post('/api/transferencias', (req, res) => {
 
         worker.on('message', mensaje => {
 
-            estadoMotor.eventos.push(mensaje);
+            registrarEvento(mensaje);
 
             const hilo = estadoMotor.hilos.find(
                 h => h.nombre === mensaje.nombre
@@ -406,7 +413,7 @@ app.post('/api/deadlock', (req, res) => {
 
         worker.on('message', mensaje => {
 
-            estadoMotor.eventos.push(mensaje);
+            registrarEvento(mensaje);
 
             const hilo =
                 estadoMotor.hilos.find(
@@ -539,7 +546,7 @@ app.post('/api/resolver', (req, res) => {
 
     estadoMotor.estado = 'RECUPERANDO';
 
-    estadoMotor.eventos.push({
+    registrarEvento({
         tipo: 'RECUPERACION',
         nombre: 'SISTEMA',
         detalle: 'T2 seleccionada como víctima'
@@ -613,7 +620,7 @@ app.post('/api/resolver', (req, res) => {
             estadoMotor.estado = 'RESUELTO';
             estadoMotor.ciclo = null;
 
-            estadoMotor.eventos.push({
+            registrarEvento({
                 tipo: 'RESUELTO',
                 nombre: 'SISTEMA',
                 detalle:
@@ -704,7 +711,7 @@ function ejecutarPruebaCarrera(protegido, res) {
 
         worker.on('message', mensaje => {
 
-            estadoMotor.eventos.push(mensaje);
+            registrarEvento(mensaje);
 
             const hilo =
                 estadoMotor.hilos.find(
