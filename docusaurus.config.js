@@ -23,12 +23,12 @@ const config = {
   url: 'https://Naydelin12.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/wiki-sistemas.operativos.I/',
+  baseUrl: '/wiki-sistemas-operativos-I/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Naydelin12', // Usually your GitHub org/user name.
-  projectName: 'wiki-sistemas.operativos.I', // Usually your repo name.
+  projectName: 'wiki-sistemas-operativos-I', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
