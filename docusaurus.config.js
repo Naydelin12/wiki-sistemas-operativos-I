@@ -20,15 +20,15 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://Naydelin12.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/wiki-sistemas.operativos.I/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Naydelin12', // Usually your GitHub org/user name.
+  projectName: 'wiki-sistemas.operativos.I', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -105,7 +105,7 @@ const config = {
       items: [
         {
           label: 'Documentación',
-          to: '/docs',
+         to: '/docs/unidad-1/introduccion',
         },
       ],
     },
