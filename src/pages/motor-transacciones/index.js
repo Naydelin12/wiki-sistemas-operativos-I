@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import styles from './styles.module.css';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = 'https://motor-concurrente-sol.onrender.com';
 
 const initialEvents = [
 
