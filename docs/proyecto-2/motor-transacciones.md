@@ -131,7 +131,7 @@ Desde ella se pueden consultar:
 ### Acceso al motor
 
 <div className="motorButtonContainer">
-  <a className="motorButton" href="/motor-transacciones">
+  <a className="motorButton" href="/wiki-sistemas-operativos-I/motor-transacciones/">
     Abrir Motor de Transacciones Concurrentes <span>→</span>
   </a>
 </div>
