@@ -847,29 +847,78 @@ app.post('/api/carrera-protegida', (req, res) => {
 // REINICIAR
 // ==========================================
 
-app.post('/api/reiniciar', (req, res) => {
 
-    estadoMotor.estado = 'NORMAL';
+app.post('/api/reiniciar', async (req, res) => {
 
-    estadoMotor.cuentas.A = 1000;
-    estadoMotor.cuentas.B = 1000;
+    try {
+        // Cancelar y cerrar la demostración de deadlock anterior.
+        const sesionAnterior = sesionDeadlock;
 
-    estadoMotor.hilos = [];
+        if (sesionAnterior) {
 
-    estadoMotor.rag = {
-        nodos: [],
-        aristas: []
-    };
+            // Detener el monitor del RAG.
+            clearInterval(sesionAnterior.monitor);
 
-    estadoMotor.deadlock = false;
-    estadoMotor.eventos = [];
+            // Solicitar la cancelación de ambos workers.
+            sesionAnterior.cancelar.fill(1);
 
-estadoMotor.pruebaCarrera = null;
-    res.json({
-        mensaje: 'Estado reiniciado correctamente.',
-        estado: estadoMotor
-    });
+            // Despertar workers que estén esperando un bloqueo.
+            const locks = new Int32Array(
+                sesionAnterior.memoriaLocks
+            );
+
+            Atomics.notify(locks, 0);
+            Atomics.notify(locks, 1);
+
+            // Terminar los workers anteriores.
+            await Promise.all(
+                sesionAnterior.workers.map(
+                    worker => worker.terminate()
+                )
+            );
+
+            // Limpiar la referencia de la sesión anterior.
+            if (sesionDeadlock === sesionAnterior) {
+                sesionDeadlock = null;
+            }
+        }
+
+        // Restablecer el estado general del motor.
+        estadoMotor.estado = 'NORMAL';
+
+        estadoMotor.cuentas.A = 1000;
+        estadoMotor.cuentas.B = 1000;
+
+        estadoMotor.hilos = [];
+
+        estadoMotor.rag = {
+            nodos: [],
+            aristas: []
+        };
+
+        estadoMotor.deadlock = false;
+        estadoMotor.ciclo = null;
+        estadoMotor.eventos = [];
+        estadoMotor.pruebaCarrera = null;
+
+        res.json({
+            mensaje: 'Estado reiniciado correctamente.',
+            estado: estadoMotor
+        });
+
+    } catch (error) {
+
+        console.error(
+            'Error al reiniciar el motor:',
+            error
+        );
+
+        res.status(500).json({
+            error: 'No se pudo reiniciar el motor correctamente.'
+        });
+    }
 });
+
 
 // ==========================================
 // SERVIDOR
