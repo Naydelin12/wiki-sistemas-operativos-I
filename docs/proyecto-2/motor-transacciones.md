@@ -1,134 +1,179 @@
----
-
-sidebar_position: 1
-title: Motor de Transacciones Concurrentes
-------------------------------------------
-
 # Motor de Transacciones Concurrentes
 
-El **Motor de Transacciones Concurrentes** es un proyecto práctico desarrollado para demostrar el comportamiento de varias transacciones que se ejecutan de manera simultánea y los problemas que pueden surgir cuando diferentes hilos comparten recursos.
+El **Motor de Transacciones Concurrentes** es un laboratorio interactivo desarrollado para estudiar cómo se comportan varios procesos cuando ejecutan operaciones al mismo tiempo. Permite observar situaciones relacionadas con las transacciones concurrentes, las condiciones de carrera, la sincronización, los interbloqueos (*deadlocks*) y los mecanismos de recuperación.
 
-El proyecto permite observar de forma interactiva conceptos fundamentales de los sistemas operativos relacionados con la concurrencia, como las condiciones de carrera, la sincronización, los interbloqueos (*deadlocks*), la detección mediante un **Grafo de Asignación de Recursos (RAG)** y los mecanismos de recuperación.
+A través de su interfaz web, es posible ejecutar diferentes pruebas y observar el estado de las cuentas, los procesos involucrados y los eventos que se producen durante cada demostración.
 
 ## Objetivo
 
-El objetivo del motor es representar situaciones de concurrencia mediante transacciones que trabajan de manera simultánea sobre recursos compartidos.
+Comprender, mediante pruebas prácticas, los problemas que pueden surgir cuando varios procesos comparten recursos y ejecutan operaciones concurrentemente. Además, se busca analizar cómo la sincronización permite controlar el acceso a los recursos y cómo se puede detectar y resolver un interbloqueo.
 
-A través de diferentes pruebas se puede observar la diferencia entre una ejecución sin protección y una ejecución sincronizada, además de provocar intencionalmente un interbloqueo para posteriormente detectarlo y resolverlo.
-
-## Conceptos implementados
+## Conceptos fundamentales
 
 ### Concurrencia
 
-La concurrencia permite que varias tareas progresen de manera simultánea. En este proyecto se utilizan diferentes hilos para representar transacciones que realizan operaciones al mismo tiempo.
+La concurrencia ocurre cuando varias tareas avanzan durante un mismo intervalo de tiempo. Sus operaciones pueden intercalarse y, dependiendo de la implementación, ejecutarse en paralelo.
+
+Cuando varias tareas acceden a datos compartidos, es necesario controlar cómo y cuándo pueden modificarlos para evitar resultados incorrectos.
 
 ### Condición de carrera
 
-Una condición de carrera ocurre cuando varios hilos acceden y modifican un recurso compartido sin una sincronización adecuada. Como consecuencia, algunas actualizaciones pueden perderse.
+Una condición de carrera (*race condition*) ocurre cuando el resultado de una operación depende del orden o del momento en que se ejecutan varias tareas concurrentes.
 
-El motor permite observar este comportamiento mediante una prueba específica de carrera.
+Por ejemplo, dos procesos pueden leer el mismo valor de una variable, calcular un nuevo resultado y escribirlo casi al mismo tiempo. Si no existe una protección adecuada, una actualización puede sobrescribir la otra y provocar la pérdida de cambios.
 
 ### Sincronización
 
-La sincronización permite controlar el acceso de los hilos a los recursos compartidos. En la prueba de carrera protegida se utiliza un mecanismo de protección para evitar que las operaciones se interfieran entre sí.
+La sincronización coordina el acceso de los procesos a los recursos compartidos. Su finalidad es evitar interferencias entre operaciones que no deberían ejecutarse simultáneamente.
 
-### Interbloqueo (Deadlock)
+En el laboratorio se compara una ejecución sin protección con otra que utiliza un mecanismo de sincronización, para observar las diferencias entre ambos comportamientos.
 
-Un interbloqueo ocurre cuando dos o más procesos quedan esperando recursos que están siendo retenidos por otros procesos del mismo conjunto.
+### Interbloqueo o deadlock
 
-En el motor se provoca intencionalmente esta situación para demostrar cómo puede detectarse y posteriormente resolverse.
+Un interbloqueo ocurre cuando dos o más procesos quedan bloqueados porque cada uno espera un recurso que otro proceso mantiene ocupado.
 
-### Grafo de Asignación de Recursos (RAG)
+En estas condiciones, los procesos involucrados no pueden continuar con sus operaciones mientras se mantenga la situación de espera.
 
-El **RAG (Resource Allocation Graph)** representa gráficamente la relación entre procesos y recursos.
+Entre las condiciones clásicas asociadas a un interbloqueo se encuentran:
 
-Los procesos pueden mantener recursos o solicitar recursos que actualmente están ocupados. Cuando estas relaciones forman un ciclo, puede existir un interbloqueo.
+- **Exclusión mutua:** un recurso solo puede ser utilizado por un proceso a la vez.
+- **Retención y espera:** un proceso conserva un recurso mientras espera otro.
+- **Ausencia de expropiación:** los recursos no se retiran por la fuerza al proceso que los posee.
+- **Espera circular:** existe una cadena de procesos en la que cada uno espera un recurso retenido por el siguiente.
 
-En la interfaz, el RAG permite visualizar las relaciones entre **T1**, **T2**, **A** y **B** durante la prueba de deadlock.
+### Grafo de asignación de recursos (RAG)
+
+El grafo de asignación de recursos (*Resource Allocation Graph*, RAG) representa las relaciones entre los procesos y los recursos que utilizan o solicitan.
+
+En el grafo:
+
+- Los procesos representan las tareas que se ejecutan.
+- Los recursos representan los elementos que pueden ser utilizados por los procesos.
+- Una arista de asignación indica que un proceso posee un recurso.
+- Una arista de solicitud indica que un proceso está esperando un recurso.
+
+Cuando los recursos tienen una sola instancia, la presencia de un ciclo en el grafo indica un interbloqueo. Si existen varias instancias de un recurso, un ciclo por sí solo no siempre demuestra que exista un interbloqueo.
+
+## Arquitectura y conexión
+
+El proyecto está compuesto por dos partes principales:
+
+**Interfaz web**
+
+Es la parte con la que interactúa el usuario. Permite iniciar las pruebas, consultar los saldos de las cuentas, observar el estado del motor y revisar los eventos de las operaciones.
+
+**Backend**
+
+Es el componente encargado de procesar las solicitudes de la interfaz y ejecutar las operaciones del motor. Está desarrollado con Node.js y Express, y utiliza trabajadores (*Worker Threads*) en las operaciones que requieren ejecución concurrente.
+
+La comunicación entre ambos componentes se realiza mediante solicitudes HTTP a los endpoints de la API. La interfaz consulta y muestra la información que devuelve el backend.
+
+El proyecto está publicado para permitir el acceso al laboratorio sin necesidad de iniciar manualmente el servidor en el equipo del usuario. La ejecución local puede utilizarse durante el desarrollo y las pruebas técnicas.
 
 ## Pruebas del motor
 
-La interfaz proporciona cinco pruebas principales.
+El laboratorio dispone de cinco pruebas principales. Para ejecutarlas, abre la interfaz y selecciona la operación que deseas observar.
 
-### 01 — Transferencias
+### 01. Transferencias concurrentes
 
-Esta prueba ejecuta dos transferencias simultáneas entre las cuentas **A** y **B**.
+**Objetivo:** observar la ejecución simultánea de dos transferencias entre las cuentas A y B.
 
-Permite observar cómo el motor procesa operaciones concurrentes sobre recursos compartidos y muestra el resultado final de las cuentas.
+La prueba ejecuta las transacciones T1 y T2 de forma concurrente. Cada operación modifica los saldos de las cuentas involucradas.
 
-### 02 — Condición de carrera
+Esta prueba permite estudiar la importancia de coordinar las operaciones que acceden a datos compartidos y comprobar cómo evoluciona el estado de las cuentas durante la ejecución.
 
-Esta prueba ejecuta dos trabajadores que realizan operaciones concurrentes sin protección.
+**Qué observar:**
 
-El objetivo es demostrar que, cuando varias operaciones modifican un recurso compartido al mismo tiempo, pueden producirse actualizaciones perdidas.
+- Los saldos actuales de las cuentas A y B.
+- Las transacciones que se ejecutan.
+- Los eventos registrados durante la operación.
+- El estado final informado por el motor.
 
-La prueba utiliza **200,000 operaciones esperadas**. El resultado puede ser menor debido a la condición de carrera.
+### 02. Condición de carrera
 
-### 03 — Carrera protegida
+**Objetivo:** observar el efecto de actualizar datos compartidos sin la sincronización necesaria.
 
-Esta prueba repite el escenario de operaciones concurrentes utilizando sincronización.
+En esta prueba se ejecutan operaciones concurrentes que modifican un valor compartido sin la protección utilizada en la prueba siguiente.
 
-El objetivo es comprobar que la protección del recurso compartido evita las actualizaciones perdidas.
+Cuando varias operaciones leen y escriben un mismo valor sin coordinación, algunas actualizaciones pueden perderse. El resultado permite estudiar la diferencia entre el número de operaciones intentadas y el valor que finalmente queda registrado.
 
-En una ejecución correcta, las **200,000 operaciones esperadas** deben coincidir con las operaciones obtenidas y las actualizaciones perdidas deben ser **0**.
+**Qué observar:**
 
-### 04 — Estancamiento provocador
+- La cantidad de operaciones ejecutadas que informa el motor.
+- El resultado final de la prueba.
+- Las posibles diferencias entre el resultado esperado y el obtenido.
 
-Esta prueba provoca intencionalmente un **deadlock** entre dos transacciones.
+### 03. Carrera protegida
 
-Una transacción mantiene un recurso mientras solicita otro, mientras que la segunda mantiene el otro recurso y solicita el primero. Como ambas quedan esperando, se produce el interbloqueo.
+**Objetivo:** comparar el comportamiento de una operación concurrente con sincronización.
 
-El motor utiliza el RAG para representar estas relaciones y detectar el ciclo correspondiente.
+Esta prueba utiliza un mecanismo de protección para coordinar las modificaciones de los datos compartidos. De esta manera, se busca evitar que varias operaciones interfieran entre sí durante la actualización del valor.
 
-Cuando el interbloqueo es identificado, el estado del motor cambia a:
+Al compararla con la condición de carrera, se puede comprender por qué la sincronización es importante cuando varios procesos acceden a un mismo recurso.
 
-`DEADLOCK_DETECTADO`
+**Qué observar:**
 
-### 05 — Bloqueo del resolver
+- El resultado final informado por el motor.
+- La cantidad de operaciones completadas.
+- Las diferencias con la prueba sin sincronización.
 
-Esta prueba permite recuperar el sistema después de detectar el deadlock.
+### 04. Provocar deadlock
 
-El motor selecciona una transacción como víctima, la cancela y libera los recursos que mantenía. Esto permite que la transacción restante pueda continuar.
+**Objetivo:** generar intencionalmente una situación de espera circular entre los procesos T1 y T2.
 
-Durante la recuperación, el monitor de eventos registra acciones como:
+Durante esta demostración, los procesos solicitan recursos en un orden que puede provocar un interbloqueo. La situación se analiza mediante las relaciones de asignación y solicitud representadas en el RAG.
 
-* **POSEE**
-* **SOLICITA**
-* **ESPERA**
-* **RECUPERACIÓN**
-* **CANCELADO**
-* **LIBERA**
-* **CONTINUA**
-* **RESUELTO**
+El propósito es observar cómo los procesos pueden quedar esperando recursos que no están disponibles porque permanecen en poder de otros procesos.
 
-Al finalizar correctamente, el estado del motor cambia a:
+**Qué observar:**
 
-`RESUELTO`
+- El estado del motor durante la demostración.
+- Los recursos que posee y solicita cada proceso.
+- Las relaciones de espera representadas en el RAG.
+- Los eventos asociados a la detección del interbloqueo.
 
-y las conexiones del RAG desaparecen al quedar liberados los recursos.
+### 05. Resolver deadlock
 
-## Monitor de eventos
+**Objetivo:** observar el mecanismo de recuperación utilizado para finalizar la demostración del interbloqueo.
 
-El motor cuenta con un **Monitor de eventos** que permite observar las acciones importantes que ocurren durante la ejecución.
+Una vez generada la situación de espera circular, el motor puede ejecutar el procedimiento de recuperación. Este proceso contempla la cancelación de un trabajador seleccionado como víctima y las acciones necesarias para liberar los recursos y permitir que la demostración finalice.
 
-Cada evento representa una acción realizada por las transacciones o por el mecanismo de recuperación. Esto facilita seguir el comportamiento del sistema y comprender cómo se produce y cómo se resuelve un interbloqueo.
+La recuperación también debe actualizar el estado de la sesión y reflejar los cambios correspondientes en la interfaz.
 
-## Interfaz interactiva
+**Qué observar:**
 
-La interfaz gráfica permite ejecutar las pruebas directamente y observar sus resultados en tiempo real.
+- La selección del proceso que se cancelará.
+- Los eventos de recuperación registrados.
+- La liberación de los recursos involucrados.
+- El estado final informado por el motor.
 
-Desde ella se pueden consultar:
+La recuperación y la detección son etapas distintas: detectar un ciclo permite identificar la situación, mientras que resolverla requiere aplicar un mecanismo que permita salir del interbloqueo.
 
-* estado actual del motor;
-* saldos de las cuentas;
-* estado de los hilos;
-* resultados de las pruebas de carrera;
-* Grafo de Asignación de Recursos;
-* estado del deadlock;
-* monitor de eventos;
-* proceso de recuperación.
+## Reiniciar el motor
 
-### Acceso al motor
+El botón **Reiniciar estado del motor** permite restablecer el estado de la demostración para iniciar nuevas pruebas.
+
+El procedimiento contempla la finalización de los trabajadores asociados a una sesión anterior de deadlock, la limpieza de su monitor y la restauración de los datos del motor.
+
+Después del reinicio, se puede volver a ejecutar la demostración de interbloqueo y probar nuevamente el mecanismo de recuperación.
+
+El reinicio es importante para que una sesión anterior no impida iniciar una nueva demostración.
+
+## Interfaz y monitor de eventos
+
+La interfaz permite consultar diferentes elementos del funcionamiento del motor:
+
+- **Estado del motor:** muestra el estado general informado por el backend.
+- **Cuentas A y B:** presentan los saldos actuales.
+- **Pruebas del motor:** permiten ejecutar las cinco operaciones disponibles.
+- **Grafo RAG:** permite observar las relaciones entre procesos y recursos cuando el backend las registra.
+- **Monitor de eventos:** presenta los eventos producidos durante las operaciones y las demostraciones.
+
+El monitor de eventos facilita el seguimiento de las operaciones y ayuda a relacionar los resultados observados con los conceptos teóricos de concurrencia, sincronización e interbloqueos.
+
+## Acceso al laboratorio
+
+Utiliza el siguiente enlace para abrir el motor y realizar las pruebas desde la interfaz web publicada.
 
 <div className="motorButtonContainer">
   <a className="motorButton" href="/wiki-sistemas-operativos-I/motor-transacciones/">
@@ -136,4 +181,8 @@ Desde ella se pueden consultar:
   </a>
 </div>
 
-La interfaz se encuentra conectada al motor de transacciones y permite ejecutar las pruebas descritas anteriormente de forma interactiva.
+## Conclusión
+
+El Motor de Transacciones Concurrentes permite estudiar de manera práctica los efectos de ejecutar operaciones simultáneas sobre recursos compartidos. Las pruebas ayudan a diferenciar una condición de carrera de una ejecución protegida mediante sincronización y muestran cómo puede producirse un interbloqueo cuando varios procesos esperan recursos entre sí.
+
+Asimismo, la representación mediante el RAG y la observación de los eventos permiten comprender las etapas de detección y recuperación. En conjunto, el laboratorio complementa la teoría de Sistemas Operativos 1 mediante la ejecución y observación de situaciones de concurrencia.
