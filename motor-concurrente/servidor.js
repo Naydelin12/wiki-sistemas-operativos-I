@@ -384,6 +384,8 @@ app.post('/api/deadlock', (req, res) => {
         }
     ];
 
+    
+let terminados = 0;
     for (const datos of configuracion) {
 
         estadoMotor.hilos.push({
@@ -410,6 +412,67 @@ app.post('/api/deadlock', (req, res) => {
         );
 
         workers.push(worker);
+
+        
+worker.on('exit', codigo => {
+    terminados++;
+
+    const hilo = estadoMotor.hilos.find(
+        h => h.nombre === datos.nombre
+    );
+
+    if (hilo) {
+        hilo.estado = 'FINALIZADO';
+    }
+
+    console.log(
+        `${datos.nombre} terminó con código ${codigo}`
+    );
+
+    if (terminados === workers.length) {
+        clearInterval(monitor);
+
+        const grafo = construirRAG(
+            propietarios,
+            esperas
+        );
+
+        const ciclo = detectarCiclo(grafo);
+
+        const aristas = [];
+
+        for (const [origen, destinos] of Object.entries(grafo)) {
+            for (const destino of destinos) {
+                aristas.push({
+                    origen,
+                    destino,
+                    tipo: origen.startsWith('T')
+                        ? 'SOLICITUD'
+                        : 'ASIGNACION'
+                });
+            }
+        }
+
+        estadoMotor.rag = {
+            nodos: ['T1', 'T2', 'A', 'B'],
+            aristas
+        };
+
+        if (!ciclo) {
+            estadoMotor.deadlock = false;
+            estadoMotor.ciclo = null;
+            estadoMotor.estado = 'RESUELTO';
+
+            registrarEvento({
+                tipo: 'RESUELTO',
+                nombre: 'SISTEMA',
+                detalle: 'Ambos workers terminaron y el RAG no contiene ciclos'
+            });
+        }
+
+        sesionDeadlock = null;
+    }
+});
 
         worker.on('message', mensaje => {
 
@@ -579,68 +642,6 @@ app.post('/api/resolver', (req, res) => {
         );
     }
 
-    // Esperamos a que la recuperación ocurra.
-    setTimeout(() => {
-
-        const grafo = construirRAG(
-            sesionDeadlock.propietarios,
-            sesionDeadlock.esperas
-        );
-
-        const ciclo = detectarCiclo(grafo);
-
-        const aristas = [];
-
-        for (
-            const [origen, destinos]
-            of Object.entries(grafo)
-        ) {
-
-            for (const destino of destinos) {
-
-                aristas.push({
-                    origen,
-                    destino,
-                    tipo:
-                        origen.startsWith('T')
-                            ? 'SOLICITUD'
-                            : 'ASIGNACION'
-                });
-            }
-        }
-
-        estadoMotor.rag = {
-            nodos: ['T1', 'T2', 'A', 'B'],
-            aristas
-        };
-
-        if (!ciclo) {
-
-            estadoMotor.deadlock = false;
-            estadoMotor.estado = 'RESUELTO';
-            estadoMotor.ciclo = null;
-
-            registrarEvento({
-                tipo: 'RESUELTO',
-                nombre: 'SISTEMA',
-                detalle:
-                    'El RAG ya no contiene ciclos'
-            });
-
-            console.log('');
-            console.log('INTERBLOQUEO RESUELTO');
-            console.log('El RAG ya no contiene ciclos.');
-
-            // Permitimos iniciar otra demostración.
-            sesionDeadlock = null;
-
-        } else {
-
-            estadoMotor.estado =
-                'RECUPERACION_EN_PROCESO';
-        }
-
-    }, 1000);
 
     res.json({
         mensaje:

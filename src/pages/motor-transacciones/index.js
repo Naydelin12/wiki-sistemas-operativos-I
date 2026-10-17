@@ -853,35 +853,14 @@ export default function MotorTransacciones() {
 
 
 
-  const ejecutarResolver = async () => {
+  
+const ejecutarResolver = async () => {
+  await ejecutarOperacion(
+    '/api/resolver',
+    ['RESUELTO']
+  );
+};
 
-    if (!deadlock) {
-
-      agregarEventoLocal(
-
-        'SYSTEM',
-
-        'No existe un deadlock activo para resolver'
-
-      );
-
-
-
-      return;
-
-    }
-
-
-
-    await ejecutarOperacion(
-
-      '/api/resolver',
-
-      ['RESUELTO']
-
-    );
-
-  };
 
 
 
