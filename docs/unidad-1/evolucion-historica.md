@@ -99,9 +99,3 @@ La miniaturización de componentes permitió llevar el cómputo fuera de las gra
 | **5a (1990+)** | Multinúcleos y Redes | **Sistemas Distribuidos, Móviles y Open Source** | GNU/Linux, Windows, Android |
 
 ---
-
-## Resumen de la Lección
-
-* La evolución de los Sistemas Operativos ha estado motivada por la necesidad de **maximizar el uso del hardware** y **simplificar la experiencia del usuario**.
-* El paso crucial de procesamiento por lotes a **multiprogramación** y **tiempo compartido** sentó las bases de la multitarea moderna.
-* La llegada del lenguaje C y **UNIX** estableció el paradigma de desarrollo portable sobre el cual están construidos casi todos los sistemas operativos actuales (Linux, macOS, Android, iOS).

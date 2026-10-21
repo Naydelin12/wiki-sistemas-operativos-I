@@ -78,9 +78,3 @@ Los SO también se categorizan según su capacidad para gestionar procesos, proc
 | **Complejidad de Código** | Alta | Baja en Kernel | Muy Alta |
 
 ---
-
-## Resumen de la Lección
-
-* La arquitectura **Monolítica** prioriza el **rendimiento** unificando todos los componentes en espacio de Kernel (ej. Linux).
-* La arquitectura **Microkernel** prioriza la **seguridad y modularidad** aislando los servicios en espacio de usuario (ej. MINIX).
-* Los sistemas operativos modernos de escritorio utilizan un enfoque **Híbrido** o **Monolítico Modular** para equilibrar velocidad y estabilidad.
