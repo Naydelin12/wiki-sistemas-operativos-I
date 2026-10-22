@@ -90,12 +90,12 @@ La miniaturización de componentes permitió llevar el cómputo fuera de las gra
 
 ## 3. Matriz Comparativa de Generaciones
 
-| Generación | Tecnología Dominante | Tipo de SO / Característica Principal | Ejemplo Representativo |
-| :--- | :--- | :--- | :--- |
-| **1a (1940-55)** | Tubos al vacío | **Sin SO** (Conmutadores manuales) | ENIAC / UNIVAC I |
-| **2a (1955-65)** | Transistores | **Sistemas por Lotes** (Monitor Residente) | IBM 7094 / GM-NAA I/O |
-| **3a (1965-80)** | Circuitos Integrados | **Multiprogramación y Tiempo Compartido** | UNIX / IBM OS/360 |
-| **4a (1980-90)** | Microprocesadores | **PCs e Interfaces Gráficas (GUI)** | MS-DOS / Mac OS |
-| **5a (1990+)** | Multinúcleos y Redes | **Sistemas Distribuidos, Móviles y Open Source** | GNU/Linux, Windows, Android |
+| Generación | Período | Tecnología dominante | Característica principal | Ejemplo representativo |
+| :--- | :--- | :--- | :--- | :--- |
+| **Generación Cero** | 1940–1955 | Tubos al vacío | Sin sistema operativo. Programación y operación manual del hardware. | ENIAC |
+| **Primera Generación** | 1955–1965 | Transistores | Procesamiento por lotes y monitores residentes. | GM-NAA I/O |
+| **Segunda Generación** | 1965–1980 | Circuitos integrados | Multiprogramación y tiempo compartido. | UNIX y OS/360 |
+| **Tercera Generación** | 1980–1990 | Microprocesadores | Expansión de computadoras personales e interfaces gráficas. | MS-DOS y Macintosh |
+| **Cuarta Generación** | 1990–Presente | Procesadores multinúcleo y redes | Sistemas conectados, móviles y de código abierto. | GNU/Linux, Windows y Android |
 
 ---

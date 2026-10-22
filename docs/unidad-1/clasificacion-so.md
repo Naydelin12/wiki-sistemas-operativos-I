@@ -3,6 +3,9 @@ sidebar_position: 5
 title: Clasificación de los Sistemas Operativos
 ---
 
+
+import SimuladorClasificacionSO from '@site/src/components/SimuladorClasificacionSO';
+
 # Clasificación de los Sistemas Operativos
 ---
 
@@ -76,5 +79,86 @@ Los SO también se categorizan según su capacidad para gestionar procesos, proc
 | **Aislamiento de Drivers** | No (Corren en Kernel) | Sí (Corren en Usuario) | Parcial |
 | **Estabilidad ante Errores** | Frágil | Muy Alta | Media / Alta |
 | **Complejidad de Código** | Alta | Baja en Kernel | Muy Alta |
+
+
+---
+
+## 4. Clasificación según su Organización y Propósito
+
+Los sistemas operativos también pueden clasificarse según la forma en que organizan sus recursos y el entorno para el cual fueron diseñados.
+
+### A. Sistemas Operativos Centralizados
+
+Administran los recursos de una computadora o sistema central, donde se concentran las principales operaciones de procesamiento.
+
+**Características:**
+- Administración central de los recursos.
+- Los procesos utilizan los recursos del equipo principal.
+- Pueden ofrecer servicios a otros equipos o terminales.
+
+**Ejemplo:** Un servidor central que proporciona servicios a diferentes usuarios.
+
+### B. Sistemas Operativos Distribuidos
+
+Coordinan varias computadoras conectadas mediante una red para ofrecer servicios y compartir recursos de manera integrada.
+
+**Características:**
+- Comunicación entre diferentes equipos.
+- Compartición de recursos.
+- Coordinación de procesos distribuidos.
+
+**Ejemplos:** Amoeba y Plan 9.
+
+### C. Sistemas Operativos Embebidos
+
+Están diseñados para funcionar dentro de dispositivos electrónicos que realizan tareas específicas.
+
+**Características:**
+- Adaptación a recursos de hardware limitados.
+- Optimización del consumo de memoria y energía.
+- Funcionamiento orientado a tareas concretas.
+
+**Ejemplos:** FreeRTOS y Embedded Linux.
+
+### D. Sistemas Operativos de Tiempo Real
+
+Están diseñados para responder a determinados eventos dentro de límites temporales establecidos.
+
+**Características:**
+- Cumplimiento de plazos de respuesta.
+- Planificación de tareas según sus prioridades.
+- Utilización en sistemas de control y automatización.
+
+**Ejemplos:** QNX, VxWorks y FreeRTOS.
+
+### Cuadro Comparativo
+
+| Tipo | Característica principal | Ejemplo |
+| :--- | :--- | :--- |
+| Centralizado | Administración desde un sistema central | Servidor central |
+| Distribuido | Coordinación de múltiples computadoras | Amoeba |
+| Embebido | Control de dispositivos específicos | Embedded Linux |
+| Tiempo real | Cumplimiento de límites temporales | QNX |
+
+---
+
+## 5. Simulador Interactivo de Clasificación de Sistemas Operativos
+
+Este simulador permite explorar y comparar los diferentes tipos de sistemas operativos según su arquitectura, administración de tareas y usuarios, y propósito.
+
+### ¿Cómo utilizar el simulador?
+
+1. Selecciona una categoría de clasificación.
+2. Elige un tipo de sistema operativo para consultar sus características y ejemplos.
+3. Presiona **Comparar todos los tipos** para visualizar sus diferencias.
+4. Responde las preguntas de autoevaluación para comprobar tus conocimientos.
+
+El simulador incluye tres categorías:
+
+- **Arquitecturas del kernel:** monolítico, microkernel e híbrido.
+- **Administración de tareas y usuarios:** monotarea, multitarea, monousuario, multiusuario, monoprocesador y multiprocesador.
+- **Tipos de sistemas operativos:** centralizados, distribuidos, embebidos y de tiempo real.
+
+<SimuladorClasificacionSO />
 
 ---

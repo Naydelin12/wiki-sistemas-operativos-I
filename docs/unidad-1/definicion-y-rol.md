@@ -52,7 +52,7 @@ Si la explicación técnica te parece complicada, imagina que el Sistema Operati
 
 ---
 
-## 4. Aislamiento y Modos de Ejecución
+## 5. Aislamiento y Modos de Ejecución
 
 Para garantizar que ningún programa destruya el sistema o espíe a otros usuarios, la arquitectura del procesador trabaja en conjunto con el SO mediante dos **modos de ejecución principales**:
 

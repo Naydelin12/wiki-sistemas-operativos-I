@@ -3,6 +3,8 @@ sidebar_position: 4
 title: Llamadas al Sistema y Protección
 ---
 
+import SimuladorLlamadasSistema from '@site/src/components/SimuladorLlamadasSistema';
+
 # Llamadas al Sistema y Protección
 
 ---
@@ -37,7 +39,7 @@ Cuando una aplicación necesita realizar una tarea de E/S (como leer un archivo 
  ─────────────────────────────────────────────────────────────
 [ Modo Núcleo ]
   3. El procesador cambia el bit de modo a Kernel Mode
-  4. El Kernel consulta la Tabla de Vectores de Interrupción
+ 4. El Kernel identifica la llamada solicitada mediante su mecanismo de despacho
   5. Se ejecuta el manejador de la Syscall solicitada
   6. Se retorna el resultado y se restaura a Modo Usuario
   ```
@@ -75,3 +77,21 @@ read(3, "Contenido del archivo...", 131072) = 24  // Lee los bytes en memoria
 write(1, "Contenido del archivo...", 24)    = 24  // Imprime en la salida estándar (pantalla)
 close(3)                                    = 0   // Cierra el archivo
 ```
+
+---
+
+## 5. Simulador Interactivo de Llamadas al Sistema
+
+Este simulador permite visualizar cómo las aplicaciones solicitan servicios al sistema operativo y cómo el kernel controla el acceso a los recursos.
+
+Selecciona uno de los tres escenarios disponibles y utiliza el botón **Siguiente paso** para observar el proceso de ejecución.
+
+Podrás analizar:
+
+- **Lectura de un archivo:** cómo se solicita y procesa una operación de lectura.
+- **Creación de un proceso:** cómo el sistema operativo crea y prepara un nuevo proceso.
+- **Acceso no autorizado:** cómo el sistema impide ejecutar instrucciones privilegiadas desde el modo usuario.
+
+<SimuladorLlamadasSistema />
+
+---
