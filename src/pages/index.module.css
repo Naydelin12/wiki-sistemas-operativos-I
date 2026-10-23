@@ -1,23 +1,327 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
 
 .heroBanner {
-  padding: 4rem 0;
-  text-align: center;
   position: relative;
+  isolation: isolate;
   overflow: hidden;
+  min-height: 530px;
+  display: flex;
+  align-items: center;
+  padding: 76px 0 68px;
+  color: #f5f8fb;
+  background:
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(32, 144, 153, 0.12),
+      transparent 48%
+    ),
+    linear-gradient(118deg, #10243a 0%, #142d45 58%, #10273b 100%);
+}
+
+.heroBanner::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: '';
+  opacity: 0.16;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(
+    180deg,
+    transparent,
+    black 35%,
+    black 80%,
+    transparent
+  );
+}
+
+.heroContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.eyebrow,
+.sectionEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #71d6d0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  line-height: 1.6;
+}
+
+.eyebrow {
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.eyebrowLine {
+  display: inline-block;
+  width: 30px;
+  height: 2px;
+  background: #42c4bd;
+}
+
+.heroTitle {
+  max-width: 100%;
+  margin: 0 auto 24px;
+  color: #f5f8fb;
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.titleAccent {
+  color: #52c9c0;
+}
+
+.heroDescription {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #c4d4e0;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.heroActions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 34px;
+}
+
+.primaryButton {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 0 23px;
+  border: 1px solid #54cec5;
+  border-radius: 4px;
+  background: #54cec5;
+  color: #10283d;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  border-color: #80e1d9;
+  background: #80e1d9;
+  color: #10283d;
+  text-decoration: none;
+}
+
+.primaryButton:focus-visible,
+.textLink:focus-visible {
+  outline: 3px solid #80e1d9;
+  outline-offset: 4px;
+}
+
+.buttonArrow {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.heroIndex {
+  position: absolute;
+  right: 12px;
+  bottom: -50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #91a9b9;
+  font-size: 0.65rem;
+  letter-spacing: 0.13em;
+}
+
+.heroIndex span:first-child {
+  color: #6dd8d0;
+  font-weight: 700;
+}
+
+.indexDivider {
+  width: 30px;
+  height: 1px;
+  background: rgba(145, 169, 185, 0.5);
+}
+
+.homeMain {
+  background: #f7f9fb;
+  color: #192e42;
+}
+
+.introSection {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 64px;
+  align-items: start;
+  padding-top: 78px;
+  padding-bottom: 74px;
+}
+
+.sectionEyebrow {
+  margin-bottom: 20px;
+  color: #148b8c;
+  font-size: 0.68rem;
+}
+
+.introHeading h2 {
+  margin: 0;
+  color: #183047;
+  font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.2;
+}
+
+.introHeading h2 span {
+  color: #168e91;
+}
+
+.introBody {
+  padding-top: 27px;
+}
+
+.introBody p {
+  margin: 0;
+  color: #526577;
+  font-size: 1rem;
+  line-height: 1.95;
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 23px;
+  color: #117f83;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.textLink:hover {
+  color: #105f66;
+  text-decoration: none;
+}
+
+.textLink span {
+  font-size: 1.2rem;
+  transition: transform 180ms ease;
+}
+
+.textLink:hover span {
+  transform: translateX(4px);
+}
+
+.bottomRule {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #183047 0%,
+    #183047 34%,
+    #36b9b2 34%,
+    #36b9b2 65%,
+    #e1ecef 65%
+  );
+}
+
+@media screen and (min-width: 997px) {
+  .heroContainer {
+    padding-right: 28px;
+    padding-left: 28px;
+  }
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    min-height: 480px;
+    padding: 72px 0 78px;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  }
+
+  .introSection {
+    gap: 36px;
   }
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@media screen and (max-width: 680px) {
+  .heroBanner {
+    min-height: auto;
+    padding: 60px 0 76px;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .eyebrow {
+    margin-bottom: 21px;
+    font-size: 0.6rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.45rem, 6.5vw, 2.1rem);
+    letter-spacing: -0.04em;
+  }
+
+  .heroDescription {
+    font-size: 0.94rem;
+    line-height: 1.8;
+  }
+
+  .heroActions {
+    margin-top: 28px;
+  }
+
+  .heroIndex {
+    right: 12px;
+    bottom: -51px;
+    font-size: 0.58rem;
+  }
+
+  .introSection {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding-top: 55px;
+    padding-bottom: 56px;
+  }
+
+  .introBody {
+    padding-top: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryButton,
+  .textLink span {
+    transition: none;
+  }
 }

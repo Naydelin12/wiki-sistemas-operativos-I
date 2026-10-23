@@ -1,3 +1,4 @@
+
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -9,23 +10,41 @@ function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
 
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
+    <header className={styles.heroBanner}>
+      <div className={clsx('container', styles.heroContainer)}>
+        <div className={styles.heroContent}>
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowLine} />
+            BASE DE CONOCIMIENTO ACADÉMICA
+          </div>
 
-        <p className="hero__subtitle">
-          {siteConfig.tagline}
-        </p>
+          <Heading as="h1" className={styles.heroTitle}>
+            {siteConfig.title}
+            <span className={styles.titleAccent}>.</span>
+          </Heading>
 
-        <div>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/unidad-1/introduccion"
-          >
-            Explorar la Wiki 📚
-          </Link>
+          <p className={styles.heroDescription}>
+            Conceptos, temas y recursos del curso de Sistemas Operativos I,
+            organizados en un solo lugar para facilitar el estudio y la consulta.
+          </p>
+
+          <div className={styles.heroActions}>
+            <Link
+              className={styles.primaryButton}
+              to="/explorar"
+            >
+              Explorar la wiki
+              <span className={styles.buttonArrow} aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </div>
+        </div>
+
+        <div className={styles.heroIndex} aria-hidden="true">
+          <span>SO1</span>
+          <span className={styles.indexDivider} />
+          <span>RECURSOS ACADÉMICOS</span>
         </div>
       </div>
     </header>
@@ -37,24 +56,44 @@ export default function Home() {
 
   return (
     <Layout
-      title={siteConfig.title}
-      description="Base de conocimiento de Sistemas Operativos l"
+      title="Inicio"
+      description="Wiki académica del curso de Sistemas Operativos I"
+      noFooter
     >
       <HomepageHeader />
 
-      <main>
-        <section className="container margin-vert--lg">
-          <div className="text--center">
-            <Heading as="h2">
-              Bienvenido a nuestra Wiki
-            </Heading>
+      <main className={styles.homeMain}>
+        <section className={clsx('container', styles.introSection)}>
+          <div className={styles.introHeading}>
+            <span className={styles.sectionEyebrow}>
+              SOBRE ESTA WIKI
+            </span>
 
+            <Heading as="h2">
+              Fundamentos de
+              <br />
+              <span>los sistemas operativos.</span>
+            </Heading>
+          </div>
+
+          <div className={styles.introBody}>
             <p>
-              En este espacio se reúnen los principales conceptos,
-              explicaciones y recursos del curso de Sistemas Operativos l.
+              Aquí encontrarás los temas del curso, explicaciones y recursos
+              que puedes consultar para repasar los contenidos de Sistemas
+              Operativos I.
             </p>
+
+            <Link
+              className={styles.textLink}
+              to="/explorar"
+            >
+              Comenzar el recorrido
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </section>
+
+        <div className={styles.bottomRule} />
       </main>
     </Layout>
   );

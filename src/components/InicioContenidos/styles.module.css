@@ -1,0 +1,256 @@
+
+.contenidos {
+  margin-top: 56px;
+  padding-top: 38px;
+  border-top: 1px solid #dce5eb;
+  color: #263746;
+}
+
+.unidadesSection,
+.recursosSection {
+  margin: 0;
+}
+
+.sectionHeader {
+  margin-bottom: 24px;
+}
+
+.etiqueta {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #168e91;
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  color: #183047;
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.sectionHeader p {
+  margin: 10px 0 0;
+  color: #617384;
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.unidadesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.unidadCard {
+  display: flex;
+  min-width: 0;
+  min-height: 260px;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #dce5eb;
+  border-radius: 8px;
+  background: #ffffff;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(18, 40, 60, 0.035);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.unidadCard:hover {
+  transform: translateY(-3px);
+  border-color: #58bdbb;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(18, 40, 60, 0.08);
+}
+
+.unidadTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf1f4;
+}
+
+.numero {
+  color: #168e91;
+  font-size: 0.82rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+}
+
+.flecha {
+  color: #7b909f;
+  font-size: 1.15rem;
+  transition:
+    transform 180ms ease,
+    color 180ms ease;
+}
+
+.unidadCard:hover .flecha {
+  transform: translate(2px, -2px);
+  color: #168e91;
+}
+
+.unidadBody {
+  flex: 1;
+  padding: 17px 0 20px;
+}
+
+.unidadBody h3 {
+  margin: 0 0 8px;
+  color: #183047;
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+
+.tema {
+  display: block;
+  margin-bottom: 10px;
+  color: #168e91;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.unidadBody p,
+.recursoBody p {
+  margin: 0;
+  color: #617384;
+  font-size: 0.87rem;
+  line-height: 1.75;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid #edf1f4;
+  color: #176f78;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.recursosSection {
+  margin-top: 54px;
+  padding-top: 34px;
+  border-top: 1px solid #dce5eb;
+}
+
+.recursosGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.recursoCard {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 20px;
+  border: 1px solid #dce5eb;
+  border-radius: 8px;
+  background: #ffffff;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.recursoCard:hover {
+  transform: translateY(-2px);
+  border-color: #58bdbb;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(18, 40, 60, 0.06);
+}
+
+.recursoNumero {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #e5f4f3;
+  color: #167f83;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.recursoBody {
+  min-width: 0;
+}
+
+.recursoBody h3 {
+  margin: 0 0 8px;
+  color: #183047;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.recursoLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: #176f78;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 996px) {
+  .unidadesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recursosGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .contenidos {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+
+  .unidadesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .unidadCard {
+    min-height: 230px;
+  }
+
+  .recursosSection {
+    margin-top: 40px;
+    padding-top: 28px;
+  }
+
+  .recursoCard {
+    padding: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unidadCard,
+  .flecha,
+  .recursoCard {
+    transition: none;
+  }
+}
